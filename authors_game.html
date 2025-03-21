@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай аўтара</title>
+    <a href="css/styles.css"></a>
+    <script src="js/script.js"></script>
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #f9f5f0;
+            color: #1a1a2e;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #a52a2a;
+        }
+        .results {
+            max-height: 400px;
+            overflow-y: auto;
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .wrong {
+            color: red;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                margin: 20px auto;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="top-bar">
+        <h1>Франциск Скорино</h1>
+    </header>
+    
+    
+
+    <div class="container" id="gameContainer">
+        <h2>Угадай аўтара па вачах</h2>
+        <img id="authorEyes" src="" alt="Вочы аўтара">
+        <div class="options" id="optionsContainer"></div>
+    </div>
+
+    
+    <script>
+        const authors = [
+            "Якуб Колас", "Максім Багдановіч", "Алесь Гарун", "Максім Гарэцкі", "Змітрок Бядуля",
+            "Уладзімір Дубоўка", "Кандрат Крапіва", "Міхась Зарэцкі", "Кузьма Чорны", "Пімен Панчанка",
+            "Iван Мележ", "Іван Шамякін", "Андрэй Макаёнак", "Янка Брыль", "Васіль Быкаў",
+            "Уладзімір Караткевіч", "Міхась Стральцоў", "Ніл Гілевіч", "Іван Чыгрынаў", "Іван Навуменка",
+            "Рыгор Барадулін", "Алесь Разанаў", "Георгій Марчук", "Аляксей Дудараў", "Міхась Башлакоў"
+        ];
+        
+        let correctAuthor = "";
+        let score = 0;
+        let totalQuestions = 0;
+        let results = [];
+        
+        function getRandomAuthor() {
+            return authors[Math.floor(Math.random() * authors.length)];
+        }
+        
+        function loadQuestion() {
+            correctAuthor = getRandomAuthor();
+            document.getElementById("authorEyes").src = `img/full/${correctAuthor}.jpg`;
+            let options = new Set();
+            options.add(correctAuthor);
+            while (options.size < 4) {
+                options.add(getRandomAuthor());
+            }
+            
+            options = Array.from(options).sort(() => Math.random() - 0.5);
+            
+            let optionsContainer = document.getElementById("optionsContainer");
+            optionsContainer.innerHTML = "";
+            
+            options.forEach(option => {
+                let button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => handleAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+        }
+        
+        function handleAnswer(selected) {
+            totalQuestions++;
+            let isCorrect = selected === correctAuthor;
+            if (isCorrect) {
+                score++;
+            }
+            results.push({
+                author: correctAuthor,
+                selected: selected,
+                isCorrect: isCorrect
+            });
+            
+            if (totalQuestions < 10) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function showResults() {
+            let resultHTML = `<h2>Гульня скончана!</h2>
+                <p>Правільных адказаў: ${score} з ${totalQuestions}</p>
+                <div class="results">`;
+            
+            results.forEach(result => {
+                resultHTML += `<div class="result-item">
+                    <img src="img/full/${result.author}.jpg" alt="Вочы ${result.author}">
+                    <img src="img/full/${result.author}.jpg" alt="${result.author}">
+                    <p class="correct">Правільны адказ: ${result.author}</p>`;
+                if (!result.isCorrect) {
+                    resultHTML += `<p class="wrong">Вы выбралі: ${result.selected}</p>`;
+                }
+                resultHTML += `</div>`;
+            });
+            
+            resultHTML += `</div>
+                <button onclick="restartGame()">Паспрабаваць зноў</button>`;
+            
+            document.getElementById("gameContainer").innerHTML = resultHTML;
+        }
+        
+        function restartGame() {
+            score = 0;
+            totalQuestions = 0;
+            results = [];
+            document.getElementById("gameContainer").innerHTML = `
+                <h2>Угадай аўтара па вачах</h2>
+                <img id="authorEyes" src="" alt="Вочы аўтара">
+                <div class="options" id="optionsContainer"></div>`;
+            loadQuestion();
+        }
+        
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+/* style.css */
+
+/* Задний фон в стиле белорусской народности */
+body {
+    background: url('belarusian-pattern.jpg') repeat; /* Повторяющийся узор */
+    background-size: contain; /* Подгоняем размер */
+    background-color: #fff8e7; /* Бежевый фон */
+}
+
+/* ===== ВЕРХНЯЯ ПАНЕЛЬ (ХЕДЕР) ===== */
+.top-bar {
+    background: #8B0000; /* Бордовый цвет */
+    color: white;
+    text-align: center;
+    padding: 13px 0; /* Было 15px, уменьшено до 10px */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    opacity: 0.9; /* Немного прозрачности для хедера */
+    transition: top 0.3s ease; /* Плавное скрытие */
+}
+
+.top-bar h1 {
+    font-size: 21px; /* Было 22px, теперь компактнее */
+    margin: 0;
+}
+
+/* ===== БОКОВОЕ МЕНЮ ===== */
+.menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    top: 5px;
+    left: 15px;
+    color: white;
+    z-index: 1001;
+    font-size: 21px;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background:  #8B0000 ; /* Тёмно-серый цвет для бокового меню */
+    position: fixed;
+    left: -250px;
+    top: 0;
+    padding-top: 60px;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1002; /* Теперь боковая панель всегда выше хедера */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background: #4A0000;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+.content {
+    text-align: center;
+    margin-top: 80px; /* Учитываем фиксированную панель */
+    padding: 20px;
+    background-color: #fff8e7; /* Белый фон для контента */
+    border-radius: 8px;
+}
+
+/* ===== ВЫПАДАЮЩИЕ БЛОКИ ===== */
+.dropdowns {
+    background: #fff8e7;
+    max-width: 600px;
+    margin: 10px auto;
+}
+
+.dropdown {
+    margin-bottom: 10px;
+}
+
+/* Кнопки раскрытия тем */
+.dropdown-btn {
+    width: 100%;
+    background: #8B0000; /* Бордовый цвет для кнопок */
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background: #B22222; /* Красный оттенок для hover */
+}
+
+/* Контент тем (скрытый по умолчанию) */
+.dropdown-content {
+    background: white;
+    padding: 5px;
+    border: 1px solid #ccc;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Плавное появление */
+.dropdown-content.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+/* --- Стили для страницы "Аўтары" --- */
+.authors-container {
+    margin-top: 80px; /* Отступ от хедера */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Отступ между карточками авторов */
+}
+
+.authors-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Изображение */
+.authors-card img {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Заголовок. Стили для ссылок с именами авторов */
+.authors-card h2 a {
+    color: #8B0000; /* Бордовый цвет для ссылок */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.authors-card h2 a:hover {
+    color: #B22222; /* Красный при наведении */
+}
+
+/* Текст */
+.authors-card p {
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
+
+.content-authors {
+    max-width: 800px; /* Ограничиваем ширину контента */
+    margin: 80px auto 20px auto; /* Учитываем отступ от хедера */
+    padding: 20px;
+    text-align: left; /* Выравнивание по левому краю */
+}
+
+.authors-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    position: relative;
+}
+
+.authors-navigation li {
+    display: inline-block;
+}
+
+.authors-navigation a {
+    text-decoration: none;
+    color: #8B0000; /* Бордовый цвет для ссылок */
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 12px;
+    transition: color 0.3s ease, background 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
+}
+
+.authors-navigation a:hover {
+    color: white;
+    background: #B22222; /* Красный при наведении */
+    border-radius: 5px;
+}
+
+.fast-10-klass {
+    background-color: white;
+    justify-content: center;
+    margin-top: 0px;
+    right: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 800;
+    word-spacing: 150px;
+    
+}
+
+.fast-10-klass a {
+    margin: 0 5px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #8B0000; /* Бордовый цвет для текста */
+}
+
+.author-image, .section-image {
+    width: auto; /* Фиксированная ширина */
+    height: 105px; /* Автоматическая высота для сохранения пропорций */
+    border-radius: 8px;
+    margin: 10px 15px 10px 0;
+    float: left;
+}
+
+/* ===== АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ ===== */
+@media screen and (max-width: 768px) {
+    .menu-btn {
+        top: 10px;
+        left: 10px;
+        font-size: 22px;
+    }
+
+    .top-bar h1 {
+        font-size: 22px;
+    }
+
+    .dropdowns {
+        width: 90%;
+    }
+
+    .dropdown-btn {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .authors-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .authors-card img {
+        width: 100px;
+    }
+
+    .author-image, .section-image {
+        height: auto;
+        width: 100px; /* Уменьшаем размер для мобильных */
+        float: none;
+        display: block;
+        margin: 0 auto 15px;
+    }
+    body::before, body::after
+    {
+        background-image: none;
+        z-index: 100;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .authors-navigation {
+        gap: 5px;
+        flex-wrap: wrap; /* Чтобы ссылки переносились, если не влезают */
+        justify-content: center;
+        text-align: center;
+    }
+
+    .authors-navigation a {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
+}
+
+/* Декоративные узоры по бокам */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    background-image: url("../img/ornament.jpg");
+    background-repeat: repeat-y; /* Повторние только по оси Y */
+    background-position: center center; /* Размещение по центру и сверху */
+    background-size: auto; /* Оставляет оригинальный размер изображения */
+}
+
+body::before {
+    left: 0;
+    
+}
+
+body::after {
+    right: 0;
+}
